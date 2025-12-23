@@ -185,12 +185,19 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
               )}
             />
 
-            <Button variant="contained" type="submit" fullWidth >
+            <Stack direction="row"
+  spacing={1.5}
+  justifyContent="center"
+  mt={2}>
+              <Button variant="contained" type="submit" fullWidth >
               Submit
             </Button>
             <Button variant="contained" onClick={handleClose} fullWidth >
               Close
             </Button>
+            </Stack>
+
+            
           </form>
         </Box>
       </Modal>

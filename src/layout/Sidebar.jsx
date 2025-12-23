@@ -1,5 +1,13 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import ListItemIcon from "@mui/material/ListItemIcon";
+
+import HomeIcon from "@mui/icons-material/Home";
+import PeopleIcon from "@mui/icons-material/People";
+import SchoolIcon from "@mui/icons-material/School";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import EventIcon from "@mui/icons-material/Event";
+
 
 import {
   Drawer,
@@ -42,12 +50,12 @@ export default function Sidebar() {
       <Divider sx={{ borderColor: "rgba(255,255,255,0.3)" }} />
       <List>
         {[
-          { text: "Home", to: "/" },
-          { text: "Users", to: "/users" },
-          { text: "Admissions", to: "/admissions" },
-          { text: "Financials", to: "/financials" },
-          { text: "Schedule", to: "/schedule" },
-        ].map(({ text, to }) => (
+          { text: "Home", to: "/", icon:<HomeIcon/>},
+          { text: "Users", to: "/users", icon:<PeopleIcon/>},
+          { text: "Admissions", to: "/admissions", icon:<SchoolIcon/> },
+          { text: "Financials", to: "/financials", icon:<AccountBalanceIcon/> },
+          { text: "Schedule", to: "/schedule", icon:<EventIcon/>},
+        ].map(({ text, to, icon }) => (
           <ListItem key={text} disablePadding>
             <ListItemButton
               component={Link}
@@ -62,6 +70,7 @@ export default function Sidebar() {
                 },
               }}
             >
+              <ListItemIcon sx={{color:"white", minWidth: 40}}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>

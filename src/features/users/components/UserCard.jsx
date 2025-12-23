@@ -1,4 +1,6 @@
 import React from "react";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Card,
   CardContent,
@@ -70,7 +72,11 @@ export default function UserCard({ user, onDelete, onEdit, setEditInto, index })
       </Box>
 
       {/* Delete Button */}
-      <Stack direction="row" justifyContent="center">
+
+      <Stack direction="row"
+  spacing={1.5}
+  justifyContent="center"
+  mt={2}>
         <Button
           variant="outlined"
           color="error"
@@ -79,17 +85,18 @@ export default function UserCard({ user, onDelete, onEdit, setEditInto, index })
         >
           Delete
         </Button>
-      </Stack>
-       <Stack direction="row" justifyContent="center">
+
         <Button
           variant="outlined"
-          color="error"
+          color="primary"
           onClick={onEdit}
           size="small"
         >
           Edit
         </Button>
       </Stack>
+      
+      
       </div>
 
       

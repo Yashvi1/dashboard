@@ -59,7 +59,10 @@ export default function UsersList() {
                 })}
             </div>
 
-            <ProfileModal open={open} onClose={() => setEditUser(null)} user={editUser} onSubmit={(updatedData) => {
+            <ProfileModal open={open} onClose={() => {
+                setEditUser(null);
+                setOpen(false);
+            }} user={editUser} onSubmit={(updatedData) => {
                 // Merge the updated fields with the existing user
                 dispatch(updateUser({ ...editUser, ...updatedData }));
                 setEditUser(null);

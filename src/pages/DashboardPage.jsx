@@ -18,25 +18,7 @@ export default function DashboardPage() {
         Add User
       </Button>
 
-      {/* Example summary cards */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Total Users</Typography>
-              <Typography variant="h4">10</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent>
-              <Typography variant="h6">Active Projects</Typography>
-              <Typography variant="h4">5</Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      
       <ProfileModal open={open}  onClose={()=>setOpen(false)} user={null} onSubmit={(data) => dispatch(addUser({...data, id: Date.now(), source: "local"}))}/>
     </div>
   );
