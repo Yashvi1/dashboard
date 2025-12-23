@@ -12,6 +12,9 @@ import Admissions from './pages/Admissions';
 import Financials from './pages/Financials';
 import Schedule from './pages/Schedule';
 
+
+console.log("Addd logs in APP")
+
 function App() {
   return (
     <Provider store={store}>
