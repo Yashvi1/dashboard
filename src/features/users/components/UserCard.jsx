@@ -10,11 +10,13 @@ import {
   Chip,
 } from "@mui/material";
 
-export default function UserCard({ user, onDelete }) {
+export default function UserCard({ user, onDelete, onEdit, setEditInto, index }) {
+
   return (
     <Card
       sx={{
         maxWidth: 320,
+        minWidth: 250,
         mx: "auto",
         boxShadow: 3,
         borderRadius: 4,
@@ -49,6 +51,7 @@ export default function UserCard({ user, onDelete }) {
       </Typography>
 
       {/* Skills as chips */}
+      <div>
       <Box sx={{ mb: 2 }}>
         <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
           Skills
@@ -77,6 +80,19 @@ export default function UserCard({ user, onDelete }) {
           Delete
         </Button>
       </Stack>
+       <Stack direction="row" justifyContent="center">
+        <Button
+          variant="outlined"
+          color="error"
+          onClick={onEdit}
+          size="small"
+        >
+          Edit
+        </Button>
+      </Stack>
+      </div>
+
+      
     </Card>
   );
 }

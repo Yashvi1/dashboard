@@ -1,7 +1,7 @@
-import React, { useState, useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { addUser } from '../redux/usersAction';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Modal,
   Box,
@@ -26,50 +26,75 @@ const style = {
 
 const skillsList = ["JavaScript", "React", "Node.js", "Python", "CSS", "HTML"];
 
-export default function ProfileModal({ open, setOpen }) {
+export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}) {
 
   const dispatch = useDispatch();
+  const users = useSelector((state) => state?.users?.list);
 
-  const { register, handleSubmit, control, formState: { errors }, reset, setValue, watch } = useForm({
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
     defaultValues: {
-      name: '',
-      description: '',
-      skills: [],
-      profile: null
+      name: editIndex ? users[editIndex]?.name : "",
+      description: editIndex ? users[editIndex]?.description : "",
+      skills: editIndex ? users[editIndex]?.skills : [],
+      profile: editIndex ? users[editIndex]?.profile : ""
     }
   });
 
 
+  useEffect(() => {
+    // reset({
+    //   name: editIndex !== null ? users[editIndex]?.name : "",
+    //   description: editIndex ? users[editIndex]?.description : "",
+    //   skills: editIndex ? users[editIndex]?.skills : [],
+    //   profile: editIndex ? users[editIndex]?.profile : ""
 
+    // })
 
+    //Auto reflecting User Data
+    if(user){
+      reset({
+        name: user.name,
+      description: user.description,
+      skills: user.skills,
+      profile: user.profile
+      });
+    }
+    else{
+      reset({
+        name: "",
+      description: "",
+      skills: [],
+      profile: ""
+      });
+    }
 
+  }, [user, reset])
 
-
-
-
-
-
-
-
-  const handleForm =handleSubmit( data => {
+  const handleForm = handleSubmit(data => {
     const normalizedData = {
-      id: Date.now(),
+      id: user?.id || Date.now(), // Use existing user's id when editing, or create new id when adding
       name: data.name,
       description: data.description,
-    skills: Array.isArray(data.skills) ? data.skills : [],
-    profile: data.profile ? URL.createObjectURL(data.profile): null,
-    source: "local",
-  };
-    dispatch(addUser(normalizedData));
-    console.log("User saved to Redux:", normalizedData);
-    setOpen(false);
+      skills: Array.isArray(data.skills) ? data.skills : [],
+      profile: data.profile ? URL?.createObjectURL(data.profile) : user?.profile || null, // Keep existing profile if no new file uploaded
+      source: user?.source || "local", // Preserve existing source or set to "local"
+    };
+    onSubmit(normalizedData);
+    console.log("User saved to Redux:", normalizedData.source);
+    onClose();
     reset();
   });
 
-  const closeModal = ()=>{
-    setOpen(false)
+
+  const closeModal = () => {
+    onClose();
     reset({})
 
+  }
+
+  function handleClose(){
+    onClose();
+    reset({})
   }
 
   // const handleSkillsClick = (skill, currentSkills, setValue) => {
@@ -83,7 +108,8 @@ export default function ProfileModal({ open, setOpen }) {
   return (
     <div >
       {/* <Button variant="contained" onClick={() => setOpen(true)}>Open Form</Button> */}
-      <Modal open={open} onClose={ closeModal}   >
+      <Modal open={open} onClose={closeModal}   >
+        
         <Box sx={style}>
           <Typography variant="h6" component="h2" mb={2}>
             Profile Form
@@ -93,7 +119,6 @@ export default function ProfileModal({ open, setOpen }) {
             <Controller
               name="profile"
               control={control}
-              rules={{ required: "Profile image is required" }}
               render={({ field }) => (
                 <TextField
                   type="file"
@@ -160,8 +185,11 @@ export default function ProfileModal({ open, setOpen }) {
               )}
             />
 
-            <Button variant="contained" type="submit" fullWidth>
+            <Button variant="contained" type="submit" fullWidth >
               Submit
+            </Button>
+            <Button variant="contained" onClick={handleClose} fullWidth >
+              Close
             </Button>
           </form>
         </Box>

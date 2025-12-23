@@ -1,22 +1,38 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers, removeUser } from '../redux/usersAction';
+import { fetchUsers, removeUser, updateUser } from '../redux/usersAction';
 import UserCard from '../components/UserCard';
+import ProfileModal from '../components/AddUsersForm';
 
 
 export default function UsersList() {
+    const [open, setOpen] = useState(false);
+    const [editUser, setEditUser] = useState(null);
+
+
+
+
+
     const dispatch = useDispatch();
     // get the users list from Redux
-    const users = useSelector((state) => state.users.list);
+    const users = useSelector((state) => state?.users?.list);
     const loading = useSelector((state) => state.users.loading);
     const error = useSelector((state) => state.users.error);
 
     // Delete handler
-  const handleDelete = (id) => {
-    dispatch(removeUser(id));
-  };
+    const handleDelete = (id) => {
+        dispatch(removeUser(id));
+    };
 
-    useEffect(()=>{
+    const handleEdit = (userId) => {
+        const updateUser = users.find((o) => o.id === userId)
+        setEditUser(updateUser)
+        setOpen(true)
+
+
+    }
+
+    useEffect(() => {
         dispatch(fetchUsers());
     }, []);
 
@@ -30,16 +46,26 @@ export default function UsersList() {
         <div>
             <h2>Users Page</h2>
             <div style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 24,
-          justifyContent: "center",
-        }}>
-            {users.map((u) => (
-                      <UserCard key={u.id} user={u} onDelete={handleDelete} />
-                    ))}
-        </div>
-            
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 24,
+                justifyContent: "center",
+            }}>
+                {users.map((u, index) => {
+                    return (
+
+                        <UserCard key={`USER${u.id}`} user={u} onDelete={handleDelete} onEdit={() => handleEdit(u.id)} index={index} />
+                    )
+                })}
+            </div>
+
+            <ProfileModal open={open} onClose={() => setEditUser(null)} user={editUser} onSubmit={(updatedData) => {
+                // Merge the updated fields with the existing user
+                dispatch(updateUser({ ...editUser, ...updatedData }));
+                setEditUser(null);
+                setOpen(false);
+            }} />
+
         </div>
     );
 }

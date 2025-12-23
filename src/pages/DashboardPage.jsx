@@ -1,9 +1,12 @@
 import {useState} from "react"
 import { Button, Typography, Grid, Card, CardContent } from "@mui/material";
 import ProfileModal from "../features/users/components/AddUsersForm";
+import { useDispatch } from "react-redux";
+import { addUser } from "../features/users/redux/usersAction";
 
 export default function DashboardPage() {
     const [open, setOpen] = useState(false);
+    const dispatch = useDispatch();
   return (
     <div>
       <Typography variant="h4" gutterBottom>
@@ -34,7 +37,7 @@ export default function DashboardPage() {
           </Card>
         </Grid>
       </Grid>
-      <ProfileModal setOpen={setOpen}  open={open} />
+      <ProfileModal open={open}  onClose={()=>setOpen(false)} user={null} onSubmit={(data) => dispatch(addUser({...data, id: Date.now(), source: "local"}))}/>
     </div>
   );
 }

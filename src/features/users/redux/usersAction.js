@@ -8,35 +8,32 @@ export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 export const fetchUsers = () => async (dispatch) => {
   dispatch({ type: FETCH_USERS_REQUEST });
 
-  try{
-  const users = await fetchUsersApi();
+  try {
+    const users = await fetchUsersApi();
 
-  //normalize API
-  const normalizedUsers = users.map((u) => ({
-    id: u.id,
+    //normalize API
+    const normalizedUsers = users.map((u) => ({
+      id: u.id,
       name: u.name,
       description: u.email,
       skills: ["Communication", "Teamwork"],
       profile: null,
       source: "api",
-  }));
+    }));
 
-  dispatch({
-    type: FETCH_USERS_SUCCESS,
-    payload: normalizedUsers,
-  });
-}
-catch(error){
-  dispatch({
-    type: FETCH_USERS_FAILURE,
-    payload: error.message,
-  });
-}
-
+    dispatch({
+      type: FETCH_USERS_SUCCESS,
+      payload: normalizedUsers,
+    });
+  }
+  catch (error) {
+    dispatch({
+      type: FETCH_USERS_FAILURE,
+      payload: error.message,
+    });
+  }
 
 };
-
-
 
 // Action creators
 export const addUser = (user) => ({
@@ -49,7 +46,7 @@ export const removeUser = (index) => ({
   payload: index,
 });
 
-export const updateUser = (index, user) => ({
+export const updateUser = (user) => ({
   type: 'UPDATE_USER',
-  payload: { index, user },
+  payload: user,
 });
