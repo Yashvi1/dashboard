@@ -47,14 +47,15 @@ export default function Sidebar() {
           High Point
         </Typography>
       </Toolbar>
+      
       <Divider sx={{ borderColor: "rgba(255,255,255,0.3)" }} />
       <List>
         {[
-          { text: "Home", to: "/", icon:<HomeIcon/>},
-          { text: "Users", to: "/users", icon:<PeopleIcon/>},
-          { text: "Admissions", to: "/admissions", icon:<SchoolIcon/> },
-          { text: "Financials", to: "/financials", icon:<AccountBalanceIcon/> },
-          { text: "Schedule", to: "/schedule", icon:<EventIcon/>},
+          { text: "Home", to: "/", icon: <HomeIcon /> },
+          { text: "Users", to: "/users", icon: <PeopleIcon /> },
+          { text: "Admissions", to: "/admissions", icon: <SchoolIcon /> },
+          { text: "Financials", to: "/financials", icon: <AccountBalanceIcon /> },
+          { text: "Schedule", to: "/schedule", icon: <EventIcon /> },
         ].map(({ text, to, icon }) => (
           <ListItem key={text} disablePadding>
             <ListItemButton
@@ -69,8 +70,9 @@ export default function Sidebar() {
                   bgcolor: "primary.dark",
                 },
               }}
+              onClick={handleDrawerToggle}
             >
-              <ListItemIcon sx={{color:"white", minWidth: 40}}>{icon}</ListItemIcon>
+              <ListItemIcon sx={{ color: "white", minWidth: 40 }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
           </ListItem>
@@ -100,7 +102,7 @@ export default function Sidebar() {
             onClick={handleDrawerToggle}
             sx={{ mr: 2, display: { sm: "none" } }}
           >
-            <MenuIcon />
+            <MenuIcon/>
           </IconButton>
           <Typography variant="h6" noWrap component="div">
             Dashboard

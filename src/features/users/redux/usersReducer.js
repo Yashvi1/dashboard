@@ -1,3 +1,4 @@
+//Initial State of the Reducer
 const initialState = {
   list: [], // store all users
   loading: false,
@@ -14,8 +15,7 @@ const usersReducer = (state = initialState, action) => {
       const existingIds = new Set(state.list.map((user) => user.id));
       const newUser = action.payload.filter((user) => !existingIds.has(user.id));
       return { ...state, loading: false, list: [...state.list, ...newUser] };
-    }
-
+    };
     case 'FETCH_USERS_FAILURE':
       return { ...state, loading: false, error: action.payload };
     case 'ADD_USER':

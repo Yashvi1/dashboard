@@ -5,6 +5,7 @@ export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 
+// Action creators
 export const fetchUsers = () => async (dispatch) => {
   dispatch({ type: FETCH_USERS_REQUEST });
 
@@ -16,7 +17,7 @@ export const fetchUsers = () => async (dispatch) => {
       id: u.id,
       name: u.name,
       description: u.email,
-      skills: ["Communication", "Teamwork"],
+      skills: ["Javascript", "MUI"], //default skills
       profile: null,
       source: "api",
     }));
@@ -35,7 +36,6 @@ export const fetchUsers = () => async (dispatch) => {
 
 };
 
-// Action creators
 export const addUser = (user) => ({
   type: 'ADD_USER',
   payload: user,

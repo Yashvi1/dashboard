@@ -10,7 +10,7 @@ export default function DashboardPage() {
   return (
     <div>
       <Typography variant="h4" gutterBottom>
-        Dashboard
+        Home Page
       </Typography>
 
       {/* Example buttons */}

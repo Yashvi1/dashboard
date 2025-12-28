@@ -9,10 +9,6 @@ export default function UsersList() {
     const [open, setOpen] = useState(false);
     const [editUser, setEditUser] = useState(null);
 
-
-
-
-
     const dispatch = useDispatch();
     // get the users list from Redux
     const users = useSelector((state) => state?.users?.list);
@@ -25,11 +21,9 @@ export default function UsersList() {
     };
 
     const handleEdit = (userId) => {
-        const updateUser = users.find((o) => o.id === userId)
+        const updateUser = users.find((u) => u.id === userId)
         setEditUser(updateUser)
         setOpen(true)
-
-
     }
 
     useEffect(() => {

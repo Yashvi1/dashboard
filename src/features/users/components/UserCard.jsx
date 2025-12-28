@@ -12,7 +12,7 @@ import {
   Chip,
 } from "@mui/material";
 
-export default function UserCard({ user, onDelete, onEdit, setEditInto, index }) {
+export default function UserCard({ user, onDelete, onEdit }) {
 
   return (
     <Card
@@ -54,52 +54,52 @@ export default function UserCard({ user, onDelete, onEdit, setEditInto, index })
 
       {/* Skills as chips */}
       <div>
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
-          Skills
-        </Typography>
-        <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap">
-          {user.skills && user.skills.length > 0 ? (
-            user.skills.map((skill) => (
-              <Chip key={skill} label={skill} size="small" color="primary" />
-            ))
-          ) : (
-            <Typography variant="body2" color="text.secondary">
-              None
-            </Typography>
-          )}
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+            Skills
+          </Typography>
+          <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap">
+            {user.skills && user.skills.length > 0 ? (
+              user.skills.map((skill) => (
+                <Chip key={skill} label={skill} size="small" color="primary" />
+              ))
+            ) : (
+              <Typography variant="body2" color="text.secondary">
+                None
+              </Typography>
+            )}
+          </Stack>
+        </Box>
+
+        {/* Delete Button */}
+
+        <Stack direction="row"
+          spacing={1.5}
+          justifyContent="center"
+          mt={2}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => onDelete(user.id)}
+            size="small"
+          >
+            Delete
+          </Button>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={onEdit}
+            size="small"
+          >
+            Edit
+          </Button>
         </Stack>
-      </Box>
 
-      {/* Delete Button */}
 
-      <Stack direction="row"
-  spacing={1.5}
-  justifyContent="center"
-  mt={2}>
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={() => onDelete(user.id)}
-          size="small"
-        >
-          Delete
-        </Button>
-
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={onEdit}
-          size="small"
-        >
-          Edit
-        </Button>
-      </Stack>
-      
-      
       </div>
 
-      
+
     </Card>
   );
 }

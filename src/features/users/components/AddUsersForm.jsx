@@ -28,6 +28,7 @@ const skillsList = ["JavaScript", "React", "Node.js", "Python", "CSS", "HTML"];
 
 export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}) {
 
+  //this part
   const dispatch = useDispatch();
   const users = useSelector((state) => state?.users?.list);
 
@@ -42,14 +43,7 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
 
 
   useEffect(() => {
-    // reset({
-    //   name: editIndex !== null ? users[editIndex]?.name : "",
-    //   description: editIndex ? users[editIndex]?.description : "",
-    //   skills: editIndex ? users[editIndex]?.skills : [],
-    //   profile: editIndex ? users[editIndex]?.profile : ""
-
-    // })
-
+    
     //Auto reflecting User Data
     if(user){
       reset({
@@ -80,7 +74,7 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
       source: user?.source || "local", // Preserve existing source or set to "local"
     };
     onSubmit(normalizedData);
-    console.log("User saved to Redux:", normalizedData.source);
+    console.log("User saved to Redux:", normalizedData);
     onClose();
     reset();
   });
@@ -97,17 +91,10 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
     reset({})
   }
 
-  // const handleSkillsClick = (skill, currentSkills, setValue) => {
-  //   if (currentSkills.includes(skill)) {
-  //     setValue('skills', currentSkills.filter(s => s !== skill));
-  //   } else {
-  //     setValue('skills', [...currentSkills, skill]);
-  //   }
-  // };
 
   return (
     <div >
-      {/* <Button variant="contained" onClick={() => setOpen(true)}>Open Form</Button> */}
+      
       <Modal open={open} onClose={closeModal}   >
         
         <Box sx={style}>
