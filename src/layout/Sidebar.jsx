@@ -29,10 +29,22 @@ import { Link } from "react-router-dom";
 const drawerWidth = 240;
 
 export default function Sidebar() {
+  const location = useLocation();
+  const currentPath = location.pathname;
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const pageTitles = {
+  "/": "Home",
+  "/users": "Users",
+  "/admissions": "Admissions",
+  "/financials": "Financials",
+  "/schedule": "Schedule",
+};
+
+const pageTitle = pageTitles[currentPath] || "Dashboard";
 
   const drawer = (
     <Box
@@ -44,7 +56,7 @@ export default function Sidebar() {
     >
       <Toolbar>
         <Typography variant="h6" noWrap component="div">
-          High Point
+          User Management
         </Typography>
       </Toolbar>
       
@@ -105,7 +117,7 @@ export default function Sidebar() {
             <MenuIcon/>
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Dashboard
+            {pageTitle}
           </Typography>
         </Toolbar>
       </AppBar>

@@ -13,7 +13,6 @@ export default function DashboardPage() {
         Home Page
       </Typography>
 
-      {/* Example buttons */}
       <Button onClick={()=> setOpen(!open)} variant="contained" color="primary" sx={{ mb: 2 }}>
         Add User
       </Button>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Button, Typography, Grid, Card, CardContent } from "@mui/material";
+import { addUser } from "../redux/usersAction"
 import { fetchUsers, removeUser, updateUser } from '../redux/usersAction';
 import UserCard from '../components/UserCard';
 import ProfileModal from '../components/AddUsersForm';
@@ -7,6 +9,8 @@ import ProfileModal from '../components/AddUsersForm';
 
 export default function UsersList() {
     const [open, setOpen] = useState(false);
+    const [addOpen, setAddOpen] = useState(false);
+
     const [editUser, setEditUser] = useState(null);
 
     const dispatch = useDispatch();
@@ -39,11 +43,17 @@ export default function UsersList() {
     return (
         <div>
             <h2>Users Page</h2>
+            <Button onClick={() => setAddOpen(!addOpen)} variant="contained" color="primary" sx={{ mb: 2 }}>
+                Add User
+            </Button>
+
+            <ProfileModal open={addOpen} onClose={() => setAddOpen(false)} user={null} onSubmit={(data) => dispatch(addUser({ ...data, id: Date.now(), source: "local" }))} />
+            
             <div style={{
-                display: "flex",
-                flexWrap: "wrap",
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
                 gap: 24,
-                justifyContent: "center",
+                justifyContent: "stretch",
             }}>
                 {users.map((u, index) => {
                     return (

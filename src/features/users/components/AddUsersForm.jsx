@@ -41,6 +41,13 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
     }
   });
 
+  const emptyForm = {
+  name: "",
+  description: "",
+  skills: [],
+  profile: ""
+};
+
 
   useEffect(() => {
     
@@ -65,12 +72,17 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
   }, [user, reset])
 
   const handleForm = handleSubmit(data => {
+    console.log(`FormData $data`, data);
     const normalizedData = {
       id: user?.id || Date.now(), // Use existing user's id when editing, or create new id when adding
       name: data.name,
       description: data.description,
       skills: Array.isArray(data.skills) ? data.skills : [],
-      profile: data.profile ? URL?.createObjectURL(data.profile) : user?.profile || null, // Keep existing profile if no new file uploaded
+      profile:
+  data.profile instanceof File
+    ? URL.createObjectURL(data.profile)
+    : user?.profile || null,
+ // Keep existing profile if no new file uploaded
       source: user?.source || "local", // Preserve existing source or set to "local"
     };
     onSubmit(normalizedData);
@@ -82,13 +94,13 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
 
   const closeModal = () => {
     onClose();
-    reset({})
+    reset(emptyForm)
 
   }
 
   function handleClose(){
     onClose();
-    reset({})
+    reset(emptyForm)
   }
 
 
@@ -123,7 +135,7 @@ export default function ProfileModal({ open, editIndex, onClose, user, onSubmit}
               fullWidth
               label="Name"
               margin="normal"
-              {...register('name', { required: "Name is required", maxLength: { value: 50, message: "Max length is 50" } })}
+              {...register('name', { required: "Name is required", maxLength: { value: 30, message: "Max length is 50" } })}
               error={!!errors.name}
               helperText={errors.name?.message}
             />

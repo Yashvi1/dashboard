@@ -13,20 +13,13 @@ export default function UsersList() {
   return (
     <div>
       <h2>Users List</h2>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 24,
-          justifyContent: "center",
-        }}
-      >
+      <div>
         {users.map((u) => (
           <UserCard key={u.id} user={u} onDelete={handleDelete} />
         ))}
 
       </div>
-      {users.map((user, index) => (
+      {/* {users.map((user, index) => (
         <div key={index} style={{
           display: "flex",
           flexWrap: "wrap",
@@ -47,7 +40,7 @@ export default function UsersList() {
             />
           )}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }

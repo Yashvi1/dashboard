@@ -17,12 +17,14 @@ export default function UserCard({ user, onDelete, onEdit }) {
   return (
     <Card
       sx={{
-        maxWidth: 320,
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        maxWidth: 280,
         minWidth: 250,
-        mx: "auto",
         boxShadow: 3,
         borderRadius: 4,
-        p: 3,
+        p: 2,
         textAlign: "center",
         bgcolor: "background.paper",
         transition: "transform 0.2s",
@@ -35,7 +37,14 @@ export default function UserCard({ user, onDelete, onEdit }) {
         alt={user.name}
         sx={{ width: 50, height: 50, mx: "auto", mb: 2, boxShadow: 2 }}
       >
-        {!user.profile && user.name?.charAt(0)}
+        {!user.profile &&
+  user.name
+    ?.split(" ")
+    .slice(0, 2)
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()}
+
       </Avatar>
 
       {/* Name */}
@@ -47,7 +56,15 @@ export default function UserCard({ user, onDelete, onEdit }) {
       <Typography
         variant="body2"
         color="text.secondary"
-        sx={{ mb: 1, minHeight: 20 }}
+        //sx={{ mb: 1, minHeight: 20 }}
+        sx={{
+    display: "-webkit-box",
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: "vertical",
+    overflow: "hidden",
+    minHeight: 25,
+    mb: 1,
+  }}
       >
         {user.description || "No description provided"}
       </Typography>
@@ -58,7 +75,7 @@ export default function UserCard({ user, onDelete, onEdit }) {
           <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
             Skills
           </Typography>
-          <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap">
+          <Stack direction="row" spacing={1} justifyContent="center" flexWrap="wrap" gap={0.5}>
             {user.skills && user.skills.length > 0 ? (
               user.skills.map((skill) => (
                 <Chip key={skill} label={skill} size="small" color="primary" />
