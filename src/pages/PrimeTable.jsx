@@ -19,16 +19,7 @@ export default function PrimeTable(){
     <div style={{ padding: "2rem" }}>
       <h2>PrimeReact Table Demo</h2>
 
-      <DataTable
-        value={data}
-        paginator
-        rows={5}
-        stripedRows
-      >
-        <Column field="id" header="ID" sortable />
-        <Column field="name" header="Name" sortable />
-        <Column field="status" header="Status" />
-      </DataTable>
+      
     </div>
   );
 }
