@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import Admissions from './pages/Admissions';
 import Financials from './pages/Financials';
 import Schedule from './pages/Schedule';
+import PrimeTable from './pages/PrimeTable';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="admissions" element={<Admissions />} />
               <Route path='financials' element={<Financials />} />
               <Route path='schedule' element={<Schedule />} />
+              <Route path='primeTable' element={<PrimeTable />} />
             </Route>
           </Routes>
         </BrowserRouter>

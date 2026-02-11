@@ -42,6 +42,7 @@ export default function Sidebar() {
   "/admissions": "Admissions",
   "/financials": "Financials",
   "/schedule": "Schedule",
+  "/primeTable": "PrimeTable",
 };
 
 const pageTitle = pageTitles[currentPath] || "Dashboard";
@@ -68,6 +69,7 @@ const pageTitle = pageTitles[currentPath] || "Dashboard";
           { text: "Admissions", to: "/admissions", icon: <SchoolIcon /> },
           { text: "Financials", to: "/financials", icon: <AccountBalanceIcon /> },
           { text: "Schedule", to: "/schedule", icon: <EventIcon /> },
+          { text: "PrimeTable", to: "/primeTable", icon: <EventIcon /> },
         ].map(({ text, to, icon }) => (
           <ListItem key={text} disablePadding>
             <ListItemButton
